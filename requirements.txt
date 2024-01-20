@@ -1,4 +1,3 @@
 aiogram
-dotenv
-os
 openai
+python-dotenv
