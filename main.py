@@ -13,7 +13,26 @@ async def cmd_start(message: types.Message):
             types.KeyboardButton(text="Новини"),
             types.KeyboardButton(text="Вчителі"),
             types.KeyboardButton(text="Розклад"),
-            types.KeyboardButton(text="Інше"),
+            types.KeyboardButton(text="ШІ-асистент"),
+            types.KeyboardButton(text="Адмінпанель")
+        ],
+    ]
+    keyboard = types.ReplyKeyboardMarkup(
+        keyboard=kb,
+        resize_keyboard=True,
+        input_field_placeholder="Оберіть одну з кнопок:"
+    )
+    await message.answer("Вас вітає Бот-Козак, який завжди готовий прийти на допомогу! Оберіть одну з кнопок, щоб я зміг бути Вам корисним:", reply_markup=keyboard)
+
+@dp.message(F.text.lower() == "повернутися")
+async def cmd_start(message: types.Message):
+    kb = [
+        [
+            types.KeyboardButton(text="Новини"),
+            types.KeyboardButton(text="Вчителі"),
+            types.KeyboardButton(text="Розклад"),
+            types.KeyboardButton(text="Контакти"),
+            types.KeyboardButton(text="ШІ-асистент"),
             types.KeyboardButton(text="Адмінпанель")
         ],
     ]
@@ -26,7 +45,7 @@ async def cmd_start(message: types.Message):
 
 @dp.message(F.text.lower() == "новини")
 async def news(message: types.Message):
-    await message.reply("У нас є гарні новини! Перейдіть за посиланням, щоб побачити свіжу інформацію: http://inter4.zp.ua/news")
+    await message.reply("У нас є гарні новини! Перейдіть за посиланням, щоб побачити свіжу інформацію: http://inter4.zp.ua/news\nТакож завітайте до наших соц-мереж:\nInstagram: https://www.instagram.com/zp.cossack_lyceum/\nFacebook: https://www.facebook.com/profile.php?id=100094544324104&locale=uk_UA")
 
 @dp.message(F.text.lower() == "вчителі")
 async def teachers(message: types.Message):
@@ -42,7 +61,8 @@ async def schedule(message: types.Message):
             types.KeyboardButton(text="8"),
             types.KeyboardButton(text="9"),
             types.KeyboardButton(text="10"),
-            types.KeyboardButton(text="11")
+            types.KeyboardButton(text="11"),
+            types.KeyboardButton(text="Повернутися")
         ],
     ]
     keyboard = types.ReplyKeyboardMarkup(
@@ -79,9 +99,7 @@ async def ten(message: types.Message):
 async def eleven(message: types.Message):
     await message.reply("Ось розклад всієї паралелі, тут є і Ваш: https://drive.google.com/drive/folders/1qZ5_szCdQgAuJ_8ufhK9h6B3Ub2_WAdN?usp=sharing")
 
-
-
-@dp.message(F.text.lower() == "інше")
+@dp.message(F.text.lower() == "ші-асистент")
 async def ai(prompt):
     try:
         completion = openai.ChatCompletion.create(
@@ -101,7 +119,7 @@ async def ai(prompt):
         return completion.choices[0].message.content
     except:
         return None
-    
+
 @dp.message()
 async def message_handler(message: types.Message):
     answer = await ai(message.text)
