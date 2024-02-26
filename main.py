@@ -9,13 +9,16 @@ import openai
 @dp.message(CommandStart())
 async def cmd_start(message: types.Message):
     kb = [
-        [
+            [
             types.KeyboardButton(text="Новини"),
             types.KeyboardButton(text="Вчителі"),
-            types.KeyboardButton(text="Розклад"),
+            types.KeyboardButton(text="Розклад")
+            ],
+            [
+            types.KeyboardButton(text="Контакти"),
             types.KeyboardButton(text="ШІ-асистент"),
             types.KeyboardButton(text="Адмінпанель")
-        ],
+            ],
     ]
     keyboard = types.ReplyKeyboardMarkup(
         keyboard=kb,
@@ -27,14 +30,16 @@ async def cmd_start(message: types.Message):
 @dp.message(F.text.lower() == "повернутися")
 async def cmd_start(message: types.Message):
     kb = [
-        [
+            [
             types.KeyboardButton(text="Новини"),
             types.KeyboardButton(text="Вчителі"),
-            types.KeyboardButton(text="Розклад"),
+            types.KeyboardButton(text="Розклад")
+            ],
+            [
             types.KeyboardButton(text="Контакти"),
             types.KeyboardButton(text="ШІ-асистент"),
             types.KeyboardButton(text="Адмінпанель")
-        ],
+            ],
     ]
     keyboard = types.ReplyKeyboardMarkup(
         keyboard=kb,
@@ -57,10 +62,14 @@ async def schedule(message: types.Message):
         [
             types.KeyboardButton(text="5"),
             types.KeyboardButton(text="6"),
-            types.KeyboardButton(text="7"),
+            types.KeyboardButton(text="7")
+        ],
+        [
             types.KeyboardButton(text="8"),
             types.KeyboardButton(text="9"),
-            types.KeyboardButton(text="10"),
+            types.KeyboardButton(text="10")
+        ],
+        [
             types.KeyboardButton(text="11"),
             types.KeyboardButton(text="Повернутися")
         ],
@@ -98,6 +107,10 @@ async def ten(message: types.Message):
 @dp.message(F.text.lower() == "11")
 async def eleven(message: types.Message):
     await message.reply("Ось розклад всієї паралелі, тут є і Ваш: https://drive.google.com/drive/folders/1qZ5_szCdQgAuJ_8ufhK9h6B3Ub2_WAdN?usp=sharing")
+
+@dp.message(F.text.lower() == "контакти")
+async def contacts(message: types.Message):
+    await message.reply("Контакти:\nНазва закладу: Комунальний заклад 'Запорізька спеціалізована школа-інтернат ІІ-ІІІ ступенів 'Козацький ліцей'' Запорізької обласної ради\nСкорочена назва: Запорізька школа-інтернат 'Козацький ліцей'\nАдреса: 69065, Запоріжжя, Дніпровський район, вул. Щаслива, 2\nТелефон/факс: +38 (061) 224-79-67\nЕ-mail: zp.inter4@ukr.net")
 
 @dp.message(F.text.lower() == "ші-асистент")
 async def ai(prompt):
