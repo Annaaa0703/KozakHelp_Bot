@@ -113,25 +113,12 @@ async def contacts(message: types.Message):
     await message.reply("Контакти:\nНазва закладу: Комунальний заклад 'Запорізька спеціалізована школа-інтернат ІІ-ІІІ ступенів 'Козацький ліцей'' Запорізької обласної ради\nСкорочена назва: Запорізька школа-інтернат 'Козацький ліцей'\nАдреса: 69065, Запоріжжя, Дніпровський район, вул. Щаслива, 2\nТелефон/факс: +38 (061) 224-79-67\nЕ-mail: zp.inter4@ukr.net")
 
 @dp.message(F.text.lower() == "ші-асистент")
-async def ai(prompt):
-    try:
-        completion = openai.ChatCompletion.create(
-            model = "gpt-3.5-turbo",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "Тебе звати Козак. Ти готовий допомогти учням із їх запитаннями щодо навчання або організаці навчального процесу"
-                },
-                {
-                    "role": "assistant",
-                    "content": prompt
-                    }
-            ],
-        )
+async def ai(message: types.Message):
+    await message.reply("Ось посилання на бета-версію бота з ші, скоро він з'явиться і у цьому чаті: https://t.me/aiii_test_bot")
 
-        return completion.choices[0].message.content
-    except:
-        return None
+@dp.message(F.text.lower() == "адмінпанель")
+async def admin(message: types.Message):
+    await message.reply("Скоро для адміністраторів з'явиться можливість додавати оголошення для інших користувачів, очікуйте на оновлення!")
 
 @dp.message()
 async def message_handler(message: types.Message):
