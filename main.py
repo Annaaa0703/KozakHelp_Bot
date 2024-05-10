@@ -137,7 +137,7 @@ async def contacts(message: types.Message):
 
 @dp.message(F.text.lower() == "інше питання")
 async def another(message: types.Message):
-    await message.reply("Якщо тут нема відповіді на ваше питання, то залиште його тут і ми надамо відповідь впродовж 24-х годин")
+    await message.reply("Якщо тут нема відповіді на ваше питання, то залиште його тут і ми надамо відповідь впродовж 24-х годин!")
 
 @dp.message(F.text.lower() == "підготовка до нмт")
 async def choose_nmt(message: types.Message):
