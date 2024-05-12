@@ -1,4 +1,5 @@
 import asyncio
+import requests
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, FSInputFile
 from aiogram.utils.keyboard import InlineKeyboardButton
@@ -158,6 +159,22 @@ async def message_handler(message: types.Message):
         await message.reply(answer)
     else:
         await message.reply("Виникла помилка, спробуйте ще раз.")
+
+@dp.message()
+async def all_message(message: types.Message):
+    await message.reply(message.text)
+    url = "https://hook.eu2.make.com/p052ofqdhrowa9osovl5epfm2vnk3cda"
+    data = {
+            "message": message.text,
+            "chat_id": message.chat.id,
+            "user_id": message.from_user.id
+            }
+    response = requests.post(url, json=data)
+
+    if response.status_code == 200:
+        await message.reply("Напишіть тут своє питання і ми підкажемо куди Вам варто звернутися.")
+    else:
+        await message.reply("Під час відправлення питання сталася помилка.")
 
 async def main():
     await dp.start_polling(bot)
